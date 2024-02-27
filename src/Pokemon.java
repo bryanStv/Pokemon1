@@ -1,4 +1,4 @@
-public class Pokemon {
+public class Pokemon implements Comparable<Pokemon>{
     private int id;
     private String nombre;
     private String tipo1;
@@ -147,7 +147,6 @@ public class Pokemon {
     public void setLegendario(boolean legendario) {
         this.legendario = legendario;
     }
-
     @Override
     public String toString() {
         return String.format("""
@@ -175,5 +174,10 @@ public class Pokemon {
                 this.defensaEspecial,
                 this.velocidad,
                 this.total);
+    }
+
+    @Override
+    public int compareTo(Pokemon other){
+        return this.nombre.compareTo(other.nombre);
     }
 }

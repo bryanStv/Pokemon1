@@ -2,23 +2,30 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         ArrayList<Pokemon> pokedex = new ArrayList<>(800);
         cargarTodosLosPokemon(pokedex);
-        menu(pokedex);
+        try {
+            menu(pokedex);
+        }catch (InputMismatchException e){
+            System.out.println("Por favor, introduce un número entero que aparezca en el menú");
+        }
     }
 
-    public static void menu(ArrayList<Pokemon> pokedex){
+    public static void menu(ArrayList<Pokemon> pokedex) throws InputMismatchException{
         Scanner tc = new Scanner(System.in);
         System.out.println("Bienvenido a la pokedex 1.0");
         System.out.println("Qué quieres hacer: ");
         System.out.println("\t\tListar todos los pokemon(1)");
         System.out.println("\t\tListar todos los pokemon de una generación determinada(2)");
-        System.out.println("\t\tListar sólo los pokemon de un tipo en específico(3)");
-        System.out.println("\t\tBuscar un pokemon en específico(4)");
+        System.out.println("\t\tListar todos los pokemon legendarios(3)");
+        System.out.println("\t\tListar sólo los pokemon de un tipo en específico(4)");
+        System.out.println("\t\tBuscar un pokemon de dos tipos(5)");
+        System.out.println("\t\tBuscar un pokemon en específico(6)");
         System.out.print("Qué opción eliges: ");
         int opcion = tc.nextInt();
         switch (opcion){
@@ -32,12 +39,24 @@ public class Main {
                 listarPorGeneracion(gen,pokedex);
                 break;
             case 3:
-                System.out.println("Los tipos son Grass, Poison, Fire, Flying, Bug, Water, Dragon, Normal, Electric, Ground, Fairy, Fighting, Rock, Steel, Ice, Psychic y Ghost");
+                isLegendario(pokedex);
+                break;
+            case 4:
+                System.out.println("Los tipos son Grass, Poison, Fire, Flying, Bug, Water, Dragon, Normal\nElectric, Ground, Fairy, Fighting, Rock, Steel, Ice, Psychic y Ghost");
                 System.out.print("Dime que tipo buscas: ");
                 String tipo = tc.next();
                 listarPorTipo(tipo,pokedex);
                 break;
-            case 4:
+            case 5:
+                System.out.println("Los tipos son Grass, Poison, Fire, Flying, Bug, Water, Dragon, Normal\nElectric, Ground, Fairy, Fighting, Rock, Steel, Ice, Psychic y Ghost");
+                System.out.print("Dime el primer tipo: ");
+                String tipo1 = tc.next();
+                System.out.print("Dime el segundo tipo: ");
+                String tipo2 = tc.next();
+                System.out.println();
+                listarPor2Tipos(tipo1,tipo2,pokedex);
+                break;
+            case 6:
                 System.out.print("Dime el nombre del pokémon a buscar: ");
                 String nombre = tc.next();
                 buscarPokemon(nombre,pokedex);
@@ -47,6 +66,22 @@ public class Main {
                 menu(pokedex);
         }
         tc.close();
+    }
+
+    private static void isLegendario(ArrayList<Pokemon> pokedex){
+        for(Pokemon p : pokedex){
+            if(p.isLegendario()){
+                System.out.println(p);
+            }
+        }
+    }
+
+    private static void listarPor2Tipos(String tipo1,String tipo2,ArrayList<Pokemon> pokedex){
+        for(Pokemon p : pokedex){
+            if((p.getTipo1().compareTo(tipo1) == 0 && p.getTipo2().compareTo(tipo2) == 0) || (p.getTipo1().compareTo(tipo2) == 0 && p.getTipo2().compareTo(tipo1) == 0)){
+                System.out.println(p);
+            }
+        }
     }
 
     private static void listarPorTipo(String tipo,ArrayList<Pokemon> pokedex){
