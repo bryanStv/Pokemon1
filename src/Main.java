@@ -26,6 +26,7 @@ public class Main {
         System.out.println("\t\tListar sólo los pokemon de un tipo en específico(4)");
         System.out.println("\t\tBuscar un pokemon de dos tipos(5)");
         System.out.println("\t\tBuscar un pokemon en específico(6)");
+        System.out.println("\t\tListar pokemon alfabéticamente(7)");
         System.out.print("Qué opción eliges: ");
         int opcion = tc.nextInt();
         switch (opcion){
@@ -61,6 +62,9 @@ public class Main {
                 String nombre = tc.next();
                 buscarPokemon(nombre,pokedex);
                 break;
+            case 7:
+                alfabeticamente(pokedex);
+                break;
             default:
                 System.out.println("Elige una opción correcta");
                 menu(pokedex);
@@ -68,6 +72,9 @@ public class Main {
         tc.close();
     }
 
+    private static void alfabeticamente(ArrayList<Pokemon> pokedex){
+        pokedex.stream().map(Pokemon::getNombre).sorted().forEach(System.out::println);
+    }
     private static void isLegendario(ArrayList<Pokemon> pokedex){
         for(Pokemon p : pokedex){
             if(p.isLegendario()){
