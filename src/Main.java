@@ -20,6 +20,7 @@ public class Main {
         Scanner tc = new Scanner(System.in);
         System.out.println("Bienvenido a la pokedex 1.0");
         System.out.println("Qué quieres hacer: ");
+        System.out.println("\t\tSalir(0)");
         System.out.println("\t\tListar todos los pokemon(1)");
         System.out.println("\t\tListar todos los pokemon de una generación determinada(2)");
         System.out.println("\t\tListar todos los pokemon legendarios(3)");
@@ -30,6 +31,8 @@ public class Main {
         System.out.print("Qué opción eliges: ");
         int opcion = tc.nextInt();
         switch (opcion){
+            case 0:
+                System.exit(0);
             case 1:
                 listarTodosLosPokemon(pokedex);
                 break;
@@ -67,8 +70,9 @@ public class Main {
                 break;
             default:
                 System.out.println("Elige una opción correcta");
-                menu(pokedex);
+                break;
         }
+        menu(pokedex);
         tc.close();
     }
 
