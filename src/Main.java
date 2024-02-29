@@ -20,7 +20,7 @@ public class Main {
         Scanner tc = new Scanner(System.in);
         System.out.println("Bienvenido a la pokedex 1.0");
         System.out.println("Qué quieres hacer: ");
-        System.out.println("\t\tSalir(0)");
+        System.out.println("\t\tSalir del menú(0)");
         System.out.println("\t\tListar todos los pokemon(1)");
         System.out.println("\t\tListar todos los pokemon de una generación determinada(2)");
         System.out.println("\t\tListar todos los pokemon legendarios(3)");
@@ -32,7 +32,7 @@ public class Main {
         int opcion = tc.nextInt();
         switch (opcion){
             case 0:
-                System.exit(0);
+                break;
             case 1:
                 listarTodosLosPokemon(pokedex);
                 break;
@@ -72,7 +72,7 @@ public class Main {
                 System.out.println("Elige una opción correcta");
                 break;
         }
-        menu(pokedex);
+        if(opcion != 0) menu(pokedex);
         tc.close();
     }
 
@@ -126,7 +126,7 @@ public class Main {
         try{
             BufferedReader line = new BufferedReader(new FileReader("files/pokemon.csv"));
             line.readLine();
-            String[] pokemons = new String[13];
+            String[] pokemons;
             String linea;
             int id,total,hp,ataque,defensa,ataqueEspecial,defensaEspecial,velocidad,generacion;
             String nombre,tipo1,tipo2;
@@ -146,13 +146,13 @@ public class Main {
                 velocidad = convertirAEntero(pokemons[10]);
                 generacion = convertirAEntero(pokemons[11]);
                 legendario = Boolean.parseBoolean(pokemons[12]);
-                if(tipo2 != " "){
-                    Pokemon poke = new Pokemon(id,nombre,tipo1,tipo2,total,hp,ataque,defensa,ataqueEspecial,defensaEspecial,velocidad,generacion,legendario);
-                    pokedex.add(poke);
+                Pokemon poke;
+                if(!tipo2.equals(" ")){
+                    poke = new Pokemon(id, nombre, tipo1, tipo2, total, hp, ataque, defensa, ataqueEspecial, defensaEspecial, velocidad, generacion, legendario);
                 }else{
-                    Pokemon poke = new Pokemon(id,nombre,tipo1,total,hp,ataque,defensa,ataqueEspecial,defensaEspecial,velocidad,generacion,legendario);
-                    pokedex.add(poke);
+                    poke = new Pokemon(id, nombre, tipo1, total, hp, ataque, defensa, ataqueEspecial, defensaEspecial, velocidad, generacion, legendario);
                 }
+                pokedex.add(poke);
             }
         }catch (IOException e){
             System.out.println("El fichero no existe");
