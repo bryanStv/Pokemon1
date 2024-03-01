@@ -8,12 +8,16 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         ArrayList<Pokemon> pokedex = new ArrayList<>(800);
-        cargarTodosLosPokemon(pokedex);
+        CrearBBDD bbdd = new CrearBBDD();
+        ConsultarBBDD.todosLosPokemon();
+        //bbdd.crearTabla();
+        //bbdd.addTodosLosPokemon();
+        /*cargarTodosLosPokemon(pokedex);
         try {
             menu(pokedex);
         }catch (InputMismatchException e){
             System.out.println("Por favor, introduce un número entero que aparezca en el menú");
-        }
+        }*/
     }
 
     public static void menu(ArrayList<Pokemon> pokedex) throws InputMismatchException{
